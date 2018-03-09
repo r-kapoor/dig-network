@@ -4,10 +4,10 @@ import json
 
 # DATA_FILE = "/home/rkapoor/Documents/ISI/data/DIG-Nov-Eval/gt-v02-all.jl"
 # input_file_base = "output.jl"
-input_file_base = 'only_backpage.jl'
-output_file_base = "ony_backpage_city_name_phone.jl"
+input_file_base = 'specific_domain.jl'
+output_file_base = "specific_domain_city_name_phone.jl"
 
-DIR_NAME = 'backpage_only'
+DIR_NAME = 'liveescortreviews.com'
 
 # doc_keys = dict()
 
@@ -85,16 +85,27 @@ def extract_data(json_document, outfile):
     #         else:
     #             doc_keys[key] = 1
 
-for count in range(1,91):
-    outfile = codecs.open(DIR_NAME +'/'+ str(count)+output_file_base, 'w', 'utf-8')
-    print(DIR_NAME +'/'+ str(count)+input_file_base)
-    with codecs.open(DIR_NAME +'/'+ str(count)+input_file_base, 'r', 'utf-8') as infile:
-        for line in infile:
-            count += 1
-            json_document = json.loads(line)
-            extract_data(json_document, outfile)
+# For All Files
+# for count in range(1,91):
+    # outfile = codecs.open(DIR_NAME +'/'+ str(count)+output_file_base, 'w', 'utf-8')
+    # print(DIR_NAME +'/'+ str(count)+input_file_base)
+    # with codecs.open(DIR_NAME +'/'+ str(count)+input_file_base, 'r', 'utf-8') as infile:
+    #     for line in infile:
+    #         count += 1
+    #         json_document = json.loads(line)
+    #         extract_data(json_document, outfile)
 
-    outfile.close()
+    # outfile.close()
+
+# For Domain files
+outfile = codecs.open(DIR_NAME +'/'+output_file_base, 'w', 'utf-8')
+print(DIR_NAME +'/'+ input_file_base)
+with codecs.open(DIR_NAME +'/'+ input_file_base, 'r', 'utf-8') as infile:
+    for line in infile:
+        json_document = json.loads(line)    
+        extract_data(json_document, outfile)
+
+outfile.close()
 # G=nx.Graph()
 # G.add_edge(1,2) # default edge data=1
 # G.add_edge(2,3,weight=0.9) # specify edge data

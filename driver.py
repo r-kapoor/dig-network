@@ -5,16 +5,24 @@ from threading import Thread
 import networkx as nx
 
 # DATA_PATH = '/data/split_name_hr/'
-DATA_PATH = 'backpage_only'
+# DATA_PATH = '/data/backpage_only/'
+
+# asexyservice.com
+# eroticmugshots.com
+# escortsincollege.com
+# hoxnif.com
+# liveescortreviews.com
+
+DATA_PATH = 'asexyservice.com/'
 # ENDING = '_backpage'
 ENDING = '_degree'
 
 # city, name, phone
-VARIABLE = 'city'
+VARIABLE = 'name'
 # hp or hr
-TYPE = 'hp'
+TYPE = 'hr'
 
-NUMBER_OF_THREADS = 2
+NUMBER_OF_THREADS = 1
 
 def batch_get_degree(list_of_files, batch_num):
     print("Spawned:", batch_num)
@@ -25,20 +33,24 @@ all_files = set()
 to_remove = set()
 pattern = VARIABLE + '_' + TYPE
 for (dirpath, dirnames, filenames) in os.walk(DATA_PATH):
+    print(filenames)
     if(dirpath == DATA_PATH):
         for file in filenames:
             if file.startswith(VARIABLE+'_'+TYPE) and file != VARIABLE+'_'+TYPE:
                 if file.endswith(ENDING):
-                    print("To Remove:", dirpath+file[:-len(ENDING)])
-                    to_remove.add(dirpath+file[:-len(ENDING)])
+                    print("To Remove:", dirpath+"/"+file[:-len(ENDING)])
+                    to_remove.add(dirpath+"/"+file[:-len(ENDING)])
                 else:
-                    print(dirpath+file)
-                    all_files.add(dirpath+file)
+                    print(dirpath+"/"+file)
+                    all_files.add(dirpath+"/"+file)
         break
 
 all_files = all_files - to_remove
 all_files = list(all_files)
 
+print(all_files)
+
+# exit()
 length = len(all_files)
 length_per_thread = length//NUMBER_OF_THREADS
 curr = 0

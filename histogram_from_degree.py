@@ -3,14 +3,18 @@ import pickle
 # matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-total_nodes = 89692
+total_nodes = 1200
 
-with open('CompleteDegree_name_hp', "rb") as fp:
+with open('CompleteDegree_name_hp_backpage', "rb") as fp:
     degree = pickle.load(fp)
 
 max_degree = 0
 max_node = None
 count = 0
+BIN_SIZE = 100
+
+# print(degree)
+print("Num of nodes:",len(degree))
 for node, degree_num in degree.items():
     if(max_degree < degree_num):
         max_degree = degree_num
@@ -20,7 +24,7 @@ print(max_degree, " of ", max_node)
 
 # exit()
 
-max_degree = 696427//1000
+max_degree = max_degree//BIN_SIZE
 degree_hist = [0]*(max_degree+1)
 nodes_with_non_zero_degree = len(degree)
 
@@ -30,11 +34,14 @@ degree_hist[0] = nodes_with_zero_degree
 
 # Bin by 100
 for node, degree_num in degree.items():
-    degree_hist[degree_num//1000]+=1
+    degree_hist[degree_num//BIN_SIZE]+=1
+
+print(degree_hist)
 
 # Calculating pk = Nk/N
 pk = [x / total_nodes for x in degree_hist]
 
+print(pk)
 # print(degree_hist)
 # for index, value in enumerate(degree_hist):
 #     if(value > 100):
@@ -79,3 +86,6 @@ plt.savefig("city_hr_scatterdegree_loglog100.png")
 # plt.savefig("loglog.png")
 
 # print("Plotted 2")
+
+
+

@@ -6,9 +6,16 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 # FILE_NAME = 'city_name_phone.jl'
-FILE_NAME = 'ony_backpage_city_name_phone.jl'
+FILE_NAME = 'specific_domain_city_name_phone.jl'
 # DIR_NAME = 'graph_data'
-DIR_NAME = 'backpage_only'
+DIR_NAME = 'asexyservice.com'
+
+# asexyservice.com:
+# eroticmugshots.com:
+# escortsincollege.com:
+# hoxnif.com:
+# liveescortreviews.com:
+
 
 def is_edge(doc1, doc2, type_of_extraction, variable):
     if(type_of_extraction in doc1 and type_of_extraction in doc2 and variable in doc1[type_of_extraction] and variable in doc2[type_of_extraction]):
@@ -75,48 +82,81 @@ logs = open('logs.out', 'w')
 
 # node_data = dict()
 city_hp_nodes = dict()
-# city_hr_nodes = dict()
-# name_hp_nodes = dict()
-# name_hr_nodes = dict()
+city_hr_nodes = dict()
+name_hp_nodes = dict()
+name_hr_nodes = dict()
 # phone_hp_nodes = dict()
 # phone_hr_nodes = dict()
 
 node_id = 0
-for count in range(1,91):
-    print("File:",count)
-    logs.write("File:"+str(count)+'\n')
-    print(DIR_NAME+'/'+str(count)+FILE_NAME)
-    with codecs.open(DIR_NAME+'/'+str(count)+FILE_NAME, 'r', 'utf-8') as data_file:
-        for line in data_file:
-            json_document = json.loads(line)
+
+# For ALL Files
+# for count in range(1,91):
+#     print("File:",count)
+#     logs.write("File:"+str(count)+'\n')
+#     print(DIR_NAME+'/'+str(count)+FILE_NAME)
+#     with codecs.open(DIR_NAME+'/'+str(count)+FILE_NAME, 'r', 'utf-8') as data_file:
+#         for line in data_file:
+#             json_document = json.loads(line)
             
-            # G_hp_city.add_node(node_id)
-            # G_hp_city.add_node(node_id)
-            # G_hp_name.add_node(node_id)
-            # G_hr_name.add_node(node_id)
-            # G_hp_phone.add_node(node_id)
-            # G_hr_phone.add_node(node_id)
+#             # G_hp_city.add_node(node_id)
+#             # G_hp_city.add_node(node_id)
+#             # G_hp_name.add_node(node_id)
+#             # G_hr_name.add_node(node_id)
+#             # G_hp_phone.add_node(node_id)
+#             # G_hr_phone.add_node(node_id)
 
-            city_hp = get_list_of_extractions(json_document, 'high_precision', 'city')
-            add_list_to_dict(city_hp, city_hp_nodes, node_id)
+#             city_hp = get_list_of_extractions(json_document, 'high_precision', 'city')
+#             add_list_to_dict(city_hp, city_hp_nodes, node_id)
 
-            # city_hr = get_list_of_extractions(json_document, 'high_recall', 'city')
-            # add_list_to_dict(city_hr, city_hr_nodes, node_id)
+#             city_hr = get_list_of_extractions(json_document, 'high_recall', 'city')
+#             add_list_to_dict(city_hr, city_hr_nodes, node_id)
 
-            # name_hp = get_list_of_extractions(json_document, 'high_precision', 'name')
-            # add_list_to_dict(name_hp, name_hp_nodes, node_id)
+#             name_hp = get_list_of_extractions(json_document, 'high_precision', 'name')
+#             add_list_to_dict(name_hp, name_hp_nodes, node_id)
 
-            # name_hr = get_list_of_extractions(json_document, 'high_recall', 'name')
-            # add_list_to_dict(name_hr, name_hr_nodes, node_id)
+#             name_hr = get_list_of_extractions(json_document, 'high_recall', 'name')
+#             add_list_to_dict(name_hr, name_hr_nodes, node_id)
 
-            # phone_hp = get_list_of_extractions(json_document, 'high_precision', 'phone')
-            # add_list_to_dict(phone_hp, phone_hp_nodes, node_id)
+#             # phone_hp = get_list_of_extractions(json_document, 'high_precision', 'phone')
+#             # add_list_to_dict(phone_hp, phone_hp_nodes, node_id)
 
-            # phone_hr = get_list_of_extractions(json_document, 'high_recall', 'phone')
-            # add_list_to_dict(phone_hr, phone_hr_nodes, node_id)
+#             # phone_hr = get_list_of_extractions(json_document, 'high_recall', 'phone')
+#             # add_list_to_dict(phone_hr, phone_hr_nodes, node_id)
 
-            # node_data[node_id] = json_document
-            node_id += 1
+#             # node_data[node_id] = json_document
+#             node_id += 1
+
+
+# For Domain Files:
+
+print(DIR_NAME+'/'+FILE_NAME)
+with codecs.open(DIR_NAME+'/'+FILE_NAME, 'r', 'utf-8') as data_file:
+    for line in data_file:
+        json_document = json.loads(line)
+
+        city_hp = get_list_of_extractions(json_document, 'high_precision', 'city')
+        add_list_to_dict(city_hp, city_hp_nodes, node_id)
+
+        city_hr = get_list_of_extractions(json_document, 'high_recall', 'city')
+        add_list_to_dict(city_hr, city_hr_nodes, node_id)
+
+        name_hp = get_list_of_extractions(json_document, 'high_precision', 'name')
+        add_list_to_dict(name_hp, name_hp_nodes, node_id)
+
+        name_hr = get_list_of_extractions(json_document, 'high_recall', 'name')
+        add_list_to_dict(name_hr, name_hr_nodes, node_id)
+
+        # phone_hp = get_list_of_extractions(json_document, 'high_precision', 'phone')
+        # add_list_to_dict(phone_hp, phone_hp_nodes, node_id)
+
+        # phone_hr = get_list_of_extractions(json_document, 'high_recall', 'phone')
+        # add_list_to_dict(phone_hr, phone_hr_nodes, node_id)
+
+        # node_data[node_id] = json_document
+        node_id += 1
+
+
         
 
 print("Nodes Added:",node_id)
@@ -145,10 +185,11 @@ print("Produces Dump")
 print("Writing Edge List")
 logs.write("Write Edge List\n")
 
-write_edge_list(city_hp_nodes, 'city_hp_backpage')
+write_edge_list(city_hp_nodes, 'city_hp')
+write_edge_list(city_hr_nodes, 'city_hr')
 # write_edge_list(city_hr_nodes, 'city_hr_10k_nodes')
-# write_edge_list(name_hp_nodes, 'name_hp')
-# write_edge_list(name_hr_nodes, 'name_hr')
+write_edge_list(name_hp_nodes, 'name_hp')
+write_edge_list(name_hr_nodes, 'name_hr')
 exit()
 
 write_edge_list(name_hr_nodes, 'name_hr')

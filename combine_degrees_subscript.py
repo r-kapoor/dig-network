@@ -32,5 +32,5 @@ for (dirpath, dirnames, filenames) in os.walk(DATA_PATH):
                         total_degree = total_degree + degree
 
 print("Writing Complete Degree")
-with open('CompleteDegree'+'_'+VARIABLE+'_'+TYPE, 'wb') as f:
+with open(DATA_PATH + '/CompleteDegree'+'_'+VARIABLE+'_'+TYPE, 'wb') as f:
     pickle.dump(total_degree, f)
